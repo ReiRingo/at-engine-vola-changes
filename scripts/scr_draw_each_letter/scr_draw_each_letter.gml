@@ -33,8 +33,9 @@ function scr_draw_each_letter(_x, _y, text, _outlineEnabled = false, _outlineSpa
     var wavy = false;
 	var shake_intensity = 1;
 	var rainbow = false;
+	var darkcol = false;
 	var text_len = string_length(text);
-
+	
 	for (var i = 1; i < draw_count + 1; i++)
 	{
 	    var ch = string_char_at(text, i);
@@ -53,6 +54,15 @@ function scr_draw_each_letter(_x, _y, text, _outlineEnabled = false, _outlineSpa
 				var arg = string_split(string_lower(cur_command), ",");
 				var arg_count = string_count(",", cur_command);
 				switch(arg[0]) {
+					case "font":
+						if (arg_count == 0)
+							draw_set_font(loc_getfont(font_main))
+						else
+							draw_set_font(asset_get_index(arg[1]))
+					break;
+					case "darkcol": case "dark_col": case "dark_color": case "darkcolor":
+						darkcol^=true;
+					break;
 					case "red": case "c_red":
 						draw_set_colour(c_red);
 					break;
@@ -113,6 +123,15 @@ function scr_draw_each_letter(_x, _y, text, _outlineEnabled = false, _outlineSpa
 						wavy ^= true;
 					break;
 				
+					case "offx":
+						if (arg_count>0)
+							xx+=arg[1]
+					break;
+				
+					case "offy":
+						if (arg_count>0)
+							yy+=arg[1]
+					break;
 				}
 
 				if (instance_exists(o_ow_dialog)) {
@@ -187,7 +206,10 @@ function scr_draw_each_letter(_x, _y, text, _outlineEnabled = false, _outlineSpa
             }
             draw_set_colour(_textCol);
         }
-        draw_text(xx + ox, yy + oy, ch);
+        if (darkcol)
+			draw_text_colour(xx+ox,yy+oy,ch,c_white,c_white,draw_get_colour(),draw_get_colour(),1)
+		else
+			draw_text(xx + ox, yy + oy, ch);
 
 	    xx += string_width(ch) * spacing;
 	}

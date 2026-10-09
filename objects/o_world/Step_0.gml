@@ -32,13 +32,13 @@ if (keyboard_check(vk_shift)&&keyboard_check_pressed(ord("L"))) {
 }
 if (keyboard_check(vk_shift)&&keyboard_check_pressed(ord("R"))) {
 	if (!instance_exists(o_dev_roomselect)) {
-		instance_create(o_dev_roomselect,0,0,-9999)
+		instance_create(o_dev_roomselect,0,0,DEPTH_UI.CONSOLE)
 	} else {instance_destroy(o_dev_roomselect)}
 }
 
 if (keyboard_check(vk_shift)&&keyboard_check_pressed(ord("E"))) {
 	if (!instance_exists(o_dev_encounterselect)) {
-		instance_create(o_dev_encounterselect,0,0,-9999)
+		instance_create(o_dev_encounterselect,0,0,DEPTH_UI.CONSOLE)
 	} else {instance_destroy(o_dev_encounterselect)}
 }
 
@@ -46,14 +46,6 @@ if (frames % 30 == 0) { global.time++ }
 
 global.room_name=room_get_name(room)
 if (global.input_delay > 0) global.input_delay--
-
-
-//---------------------------------
-// For the border testing stuff
-//---------------------------------
-if (border_test && keyboard_check_pressed(ord("H"))) {
-	border_set_state(!border_get_state());
-}
 
 if (global.borders != _old_bord) __window_update();
     
@@ -91,3 +83,5 @@ game_h = 480 * ratio;
 
 game_x = border_x + (global.borders ? 160 * ratio : 0);
 game_y = border_y + (global.borders ? 30 * ratio : 0);
+
+__window_update()

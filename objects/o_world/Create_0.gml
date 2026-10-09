@@ -35,7 +35,7 @@ global.current_encounter = 0;
 // border_surface = surface_create(window_get_width(),window_get_height());	
 dialogue_destroywarn = false;
 frames         = 0;
-global.borders = true;
+global.borders = false;
 border_spr     = spr_ui_border_simple;
 old_border     = spr_ui_border_simple;
 border_test    = true;
@@ -62,3 +62,4 @@ __window_update = function() {
 
 application_surface_draw_enable(false);
 __window_update()
+depth=DEPTH_UI.WORLD

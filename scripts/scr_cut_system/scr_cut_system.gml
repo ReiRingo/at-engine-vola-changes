@@ -89,6 +89,13 @@ function cutscene_t() constructor {
 		return self;
 	}
 	
+	static wait_until = function(sythax) {
+		if (sythax)
+			return self
+		else
+			return -1
+	}
+	
 	static run = function(func) {
 		cutscene_run(self, func);
 		

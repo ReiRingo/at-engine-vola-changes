@@ -1,4 +1,7 @@
-interactables = [ o_interactparent, o_npc_parent ];
+interactables = [
+	o_interactparent,
+	o_npc_parent,
+];
 
 state = PLAYER_STATES.free;
 image_speed = 0;
@@ -29,16 +32,50 @@ inwater = 0;
 in_cutscene = false;
 s_override = false;
 
-collision = function(object=o_solidparent) {
-
-	if (place_meeting(x+hsp,y,object)) {
-		while (!place_meeting(x+sign(hsp),y,object)) {x += sign(hsp);}
-		hsp = 0;
+collision = function(object=block){
+	if (hsp!=0&&place_meeting(x+hsp,y,object)){
+		var d=sign(hsp)
+		var ok=false
+		for (var i=1;i<=8;i++){
+			if (!place_meeting(x+hsp,y-i,object)){
+				y-=1
+				ok=true
+				break;
+			}
+			if (!place_meeting(x+hsp,y+i,object)){
+				y+=1
+				ok=true
+				break;
+			}
+		}
+		if (!ok){
+			while (!place_meeting(x+d,y,object))
+				x+=d
+			hsp=0
+		}
 	}
 
-	if (place_meeting(x,y+vsp,object)) {
-		while (!place_meeting(x,y+sign(vsp),object)) {y += sign(vsp)}
-		vsp = 0
+	if (vsp!=0&&place_meeting(x,y+vsp,object)){
+		var d=sign(vsp)
+		var ok=false
+
+		for (var i=1; i<=8; i++){
+			if (!place_meeting(x-i,y+vsp,object)){
+				x-=1
+				ok=true
+				break;
+			}
+			if (!place_meeting(x+i,y+vsp,object)){
+				x+=1
+				ok=true
+				break;
+			}
+		}
+
+		if (!ok){
+			while (!place_meeting(x,y+d,object)) y+=d
+			vsp=0
+		}
 	}
 }
 

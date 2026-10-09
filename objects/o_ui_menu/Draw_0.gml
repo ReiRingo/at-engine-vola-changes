@@ -32,7 +32,7 @@ if (!top){
 	for (var i = 0; i < array_length(options); ++i) {
 		
 		if (selection == i && state == 0)
-			if (!instance_exists(o_ow_dialog))
+			if (!instance_exists(o_ow_dialog)&&!waiting)
 				draw_sprite_ext(spr_ui_soul,0,28+xxx,98+18*i+4-5+yyy,1,1,0,c_red,1)
 			
 		if (!options[i].selectable)

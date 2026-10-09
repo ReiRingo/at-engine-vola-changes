@@ -117,7 +117,7 @@ function afterimage(_fade_spd=0.1,_color=c_white){
 }
 
 function fader(_start,_end,_duration,_color){
-	var _inst           = instance_create(o_fader,0,0,-4500)
+	var _inst           = instance_create(o_fader,0,0,DEPTH_UI.CONSOLE)
 	_inst.alpha_start   = _start
 	_inst.alpha_end     = _end
 	_inst.duration      = _duration

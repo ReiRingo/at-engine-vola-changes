@@ -82,4 +82,11 @@ stats_options = [
 		min: function(){return 1},
 		max: function(){return 99},
 	},
+	{
+		name: "Border",
+		get: function(){return global.borders},
+		set: function(v){global.borders = clamp(v,false,true)},
+		min: function(){return false},
+		max: function(){return true},
+	},
 ]

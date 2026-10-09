@@ -78,7 +78,7 @@ function enc_enemy_test() : enc_enemy() constructor{
 				,false,false)
 				_c.run(function(){
 					v_att+=2
-					o_enc_testenemy.sprite_index=spr_enc_enemy_test_hurt
+					o_enc_testenemy.sprite_index=spr_enc_e_test_hurt
 				})
 				_c.play();
 			})

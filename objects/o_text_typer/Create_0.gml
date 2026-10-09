@@ -1,4 +1,4 @@
-line = 0;
+fpline = 0;
 text = "";
 pos = 1;
 spd = 1;

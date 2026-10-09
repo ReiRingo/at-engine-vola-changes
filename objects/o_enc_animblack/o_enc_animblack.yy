@@ -8,8 +8,8 @@
   "name":"o_enc_animblack",
   "overriddenProperties":[],
   "parent":{
-    "name":"encounter",
-    "path":"folders/@engine/objects/encounter.yy",
+    "name":"anim",
+    "path":"folders/@engine/objects/encounter/anim.yy",
   },
   "parentObjectId":null,
   "persistent":false,

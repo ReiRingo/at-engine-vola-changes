@@ -16,7 +16,7 @@ if (state!=prev_state) {
 
 switch(state) {
 	case 0:
-		if (!instance_exists(o_ow_dialog) && !instance_exists(o_ui_image)) {
+		if (!instance_exists(o_ow_dialog) && !instance_exists(o_ui_image) && !waiting) {
 			var old_sel = selection;
 			if (InputPressed(INPUT.UP)){selection = max(0,selection-1);}
 		
@@ -104,7 +104,7 @@ switch(state) {
 									}
 								break;
 							}
-							dialogmade = 1; state = 0; sub_state=0;
+							waiting = true; state = 0; sub_state=0;
 						}
 						else{
 							audio_play_sound(snd_ui_deny,1,false)
@@ -114,7 +114,7 @@ switch(state) {
 					case "INFO":
 						if (item_actions[item_action_selection].selectable){
 							Dialogue_Create(global.items[item_selection].description.check)
-							dialogmade = 1; state = 0; sub_state=0;
+							waiting = true; state = 0; sub_state=0;
 						}
 						else{
 							audio_play_sound(snd_ui_deny,1,false)
@@ -157,15 +157,12 @@ switch(state) {
 		
 		if (InputPressed(INPUT.CONFIRM)){
 			var target=cells[cell_selection];
-			if (target.result != undefined) {
-				if (is_method(target.result)) {script_execute(target.result)}
-				else {
-					Dialogue_Create(target.result)
-				}
+			if (target.exec != undefined) {
+				script_execute(target.exec)
 				audio_play_sound(snd_ui_select,1,false)
 				state = 0;
 				cell_selection=0;
-				dialogmade=1;
+				waiting=true;
 			} else {audio_play_sound(snd_ui_deny,1,false)}
 		}
 		if (InputPressed(INPUT.CANCEL)){
@@ -177,7 +174,3 @@ switch(state) {
 		if (InputPressed(INPUT.CANCEL)){state = 0;}
 	break;
 }
-
-if (dialogmade)
-	if (!instance_exists(o_ow_dialog))
-		instance_destroy()
